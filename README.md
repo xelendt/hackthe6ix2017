@@ -2,14 +2,13 @@
 
 ## Overview
 
-This is a wrapper for Shopify's API that allows users to build their stores from within Unity.
+Head tracking for daydream
 
-## Unity Plugin
+## Todo
 
-The plugin provides the following:
-
-* Shopify API wrapper
-* WebVR support for Unity
+* Positional tracker on the phone
+* Tracking headset via RGB camera
+* TCP communication
 
 ## Documentation
 
