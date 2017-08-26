@@ -5,6 +5,7 @@ import {
   Pano,
   Text,
   View,
+  VrButton,
 } from 'react-vr';
 
 export default class WelcomeToVR extends React.Component {
@@ -12,7 +13,11 @@ export default class WelcomeToVR extends React.Component {
     return (
       <View>
         <Pano source={asset('chess-world.jpg')}/>
-        <Text
+        
+        <VrButton
+          style={{width: 1.5}}
+          onClick={()=>console.log("clicked")}>
+          <Text
           style={{
             backgroundColor: '#777879',
             fontSize: 0.8,
@@ -24,8 +29,9 @@ export default class WelcomeToVR extends React.Component {
             textAlignVertical: 'center',
             transform: [{translate: [0, 0, -3]}],
           }}>
-          hello
+          hello2
         </Text>
+        </VrButton>
       </View>
     );
   }
