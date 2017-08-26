@@ -24,3 +24,6 @@
 
     { "moved": boolean }
 
+# TODO: 
+
+* add positiion values
