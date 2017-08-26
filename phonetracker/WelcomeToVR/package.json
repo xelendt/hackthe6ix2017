@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node -e \"console.log('open browser at http://localhost:8081/vr/\\n\\n');\" && node node_modules/react-native/local-cli/cli.js start",
+    "start": "npm-run-all --parallel start1 secure",
+    "secure": "node proxy.js",
+    "start1": "node -e \"console.log('open browser at http://localhost:8081/vr/\\n\\n');\" && node node_modules/react-native/local-cli/cli.js start",
     "bundle": "node node_modules/react-vr/scripts/bundle.js",
     "open": "node -e \"require('xopen')('http://localhost:8081/vr/')\"",
     "devtools": "react-devtools",
@@ -11,6 +13,7 @@
   },
   "dependencies": {
     "http-proxy": "^1.16.2",
+    "npm-run-all": "^4.1.0",
     "ovrui": "~1.4.0",
     "react": "~15.4.1",
     "react-native": "~0.42.0",
