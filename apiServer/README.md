@@ -10,7 +10,7 @@
 
 ## `/state`
 
-* `GET` - returns a single state if one exists
+* `GET` - returns an array of a single state if one exists
 * `POST` - creates a single state and returns the created state with its `stateId`
   * Format:
 
