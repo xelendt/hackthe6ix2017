@@ -5,10 +5,19 @@
 // Standard library
 #include <iostream>
 #include <stdlib.h>
+#include <thread>
 
 // OpenCV
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
+
+void serverThread()
+{
+    while( true )
+    {
+	std::cout << "transmitting..." << std::endl;
+    }
+}
 
 int main()
 {
@@ -18,6 +27,9 @@ int main()
     {
 	std::cout << "Could not open webcam" << std::endl;
     }
+
+    std::thread comm_thread(serverThread);
+    comm_thread.detach();
 
     while( true )
     {
