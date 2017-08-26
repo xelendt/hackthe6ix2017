@@ -5,20 +5,21 @@
 // Auto-generated content.
 import {VRInstance} from 'react-vr-web';
 
-import {THREE} from "three";
+import * as THREE from 'three';
 
 function init(bundle, parent, options) {
   
-  //const scene = new THREE.Scene();
+  const scene = new THREE.Scene();
 
   //console.log( vr );
   const vr = new VRInstance(bundle, 'WelcomeToVR', parent, {
     // Add custom options here
     cursorVisibility: 'visible',
+    scene:scene,
   });
 
   const cube = new THREE.Mesh(
-    new THREE.BoxGeometry(1,1,1),
+    new THREE.BoxGeometry(0.1,0.1,0.1),
     new THREE.MeshBasicMaterial()
     );
   cube.position.z = -1;
@@ -27,6 +28,7 @@ function init(bundle, parent, options) {
   vr.render = function() {
     // Any custom behavior you want to perform on each frame goes here
     // console.log( vr );
+    cube.rotation.y += 0.1;
     console.log( "HELLO FROM RENDER LOOP");
     console.log( vr );
   };
