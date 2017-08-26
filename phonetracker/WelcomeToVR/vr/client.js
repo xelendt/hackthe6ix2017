@@ -18,6 +18,7 @@ function init(bundle, parent, options) {
     scene:scene,
   });
 
+
   const cube = new THREE.Mesh(
     new THREE.BoxGeometry(0.1,0.1,0.1),
     new THREE.MeshBasicMaterial()
@@ -29,8 +30,10 @@ function init(bundle, parent, options) {
     // Any custom behavior you want to perform on each frame goes here
     // console.log( vr );
     cube.rotation.y += 0.1;
-    console.log( "HELLO FROM RENDER LOOP");
-    console.log( vr );
+    //console.log( "HELLO FROM RENDER LOOP");
+    console.log( vr.player.camera.rotation );
+
+    
   };
 
   window.addEventListener("deviceorientation", function(event) {
