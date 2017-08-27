@@ -15,12 +15,23 @@ pos = {x:0,
        y:0,
        z:0};
 
-damper = 13;
+d = new Date();
+cal_period = 200;
+drift = {x: 0,
+         y: 0,
+         z: 0};
+
+thresh = 1; // threshold for acceleration
+
+damper = 13; // damper for acceleration
+
 
 const cube = new THREE.Mesh(
   new THREE.BoxGeometry(0.1,0.1,0.1),
   new THREE.MeshBasicMaterial()
 );
+
+startTime = 0;
 
 function init(bundle, parent, options) {
   
@@ -59,9 +70,16 @@ function init(bundle, parent, options) {
       cube.material.color.r = 0;
       //console.log( accel );
       //vr.player.camera.position.x += 0.1;
-      vel.x += accel.x / damper;
-      vel.y += accel.y / damper;
-      vel.z += accel.z / damper;
+      if( Math.abs(accel.x) > thresh ){
+        vel.x += (accel.x )/ damper;
+      }
+      if( Math.abs(accel.y) > thresh ){
+        vel.y += (accel.y )/ damper;
+      }
+      if( Math.abs(accel.z) > thresh ){
+        vel.z += (accel.z )/ damper;
+      }
+      
     }
     pos.x += vel.x;
     pos.y += vel.y;
@@ -71,6 +89,26 @@ function init(bundle, parent, options) {
     vr.player.camera.position.y = pos.y;
     vr.player.camera.position.z = pos.z;
     // /console.log( cube.position.x );
+
+    d = new Date();
+    if( startTime == 0 )
+    {
+      startTime = d.getTime();
+      console.log( startTime );
+    }
+    else if( startTime > 0 )
+    {
+      console.log( d.getTime() );
+      if( d.getTime() > startTime + cal_period )
+      {
+        drift.x = pos.x / cal_period / cal_period;
+        drift.y = pos.y / cal_period / cal_period;
+        drift.z = pos.z / cal_period / cal_period;
+        pos = {x: 0,y:0,z:0};
+        console.log("done calibration");
+        startTime = -1;
+      }
+    }
   };
 
   window.addEventListener("deviceorientation", function(event) {
