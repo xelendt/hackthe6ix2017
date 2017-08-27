@@ -139,5 +139,13 @@ while(True):
 	if( cv2.waitKey(1) & 0xFF == ord('q') ):
 		break
 
+	DATA = { 'moving': False, 'x': new_avg[0]*step, 'y': new_avg[1]*step, 'z':0 }
+
+	# send the http request
+	r = requests.put(URL, json=DATA)
+
+	print( r.status_code )
+	print( r.reason )
+
 cap.release()
 cv2.destroyAllWindows()
