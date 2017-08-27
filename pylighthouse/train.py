@@ -50,6 +50,7 @@ print( len(training_data[0]))
 svm.train(np.array(training_data, dtype=np.float32), cv2.ml.ROW_SAMPLE, np.array(training_results))
 svm.save("svm_data.txt")
 
+'''
 print(fname1)
 test = cv2.imread("../lighthouse/train_grad/644449426.png")
 cv2.imshow('test', test)
@@ -59,6 +60,7 @@ test = test.reshape(-1, 54000);
 
 print(svm.predict(np.array(test, dtype=np.float32))[1])
 #print( svm.getSupportVectors() )
+'''
 
 print( "Done!") 
 

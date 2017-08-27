@@ -42,8 +42,8 @@ void getGrad( cv::Mat& in, cv::Mat& out )
     //cv::Sobel( in, gx, CV_32F, 1, 0, 3, 1, 0, cv::BORDER_DEFAULT );
     //cv::Sobel( in, gy, CV_32F, 0, 1, 3, 1, 0, cv::BORDER_DEFAULT );
     cv::hconcat( in, in, out );
-    cv::imshow( "out", out );
-    cv::waitKey(0);
+    //cv::imshow( "out", out );
+    //cv::waitKey(0);
 }
 
 void saveWithResult( cv::Mat& toSave, int result )
@@ -121,8 +121,10 @@ int main()
 	    do 
 	    {
 		//std::cout << "init for x and y" << std::endl;
-		x = rand() % (frame.cols - cellWidth*2) + cellWidth;
-		y = rand() % (frame.rows - cellHeight*2)+ cellWidth;
+		x = rand() % (frame.cols - cellWidth*2) + cellWidth/2 -1;
+		y = rand() % (frame.rows - cellHeight*2)+ cellWidth/2 -1;
+
+		std::cout << x << ", " << y << " -- " << frame.cols << ", " << frame.rows << std::endl;
 
 		for( int j = 0; j < pos_locs.size(); j ++ )
 		{
@@ -131,8 +133,8 @@ int main()
 		    {
 			//std::cout << "not allowed" << std::endl;
 			
-			x = rand() % (frame.cols - cellWidth*2) + cellWidth;
-			y = rand() % (frame.rows - cellHeight*2)+ cellWidth;
+			x = rand() % (frame.cols - cellWidth*2) + cellWidth/2 -1 ;
+			y = rand() % (frame.rows - cellHeight*2)+ cellWidth/2 -1 ;
 			
 			j = 0;
 			continue;
@@ -144,7 +146,7 @@ int main()
 	    cv::Mat subframe = frame( cv::Rect( x-cellWidth/2, y-cellHeight/2, cellWidth, cellHeight ) );
 	    cv::Mat neg;
 	    getGrad( subframe, neg );
-	    saveWithResult( neg, 0 );
+	    saveWithResult( neg, -1 );
 	    
 	    cv::rectangle( frame
 			, cv::Point( x-cellWidth/2, y-cellHeight/2 )
