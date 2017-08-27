@@ -42,7 +42,7 @@ print( training_results )
 svm = cv2.ml.SVM_create()
 svm.setType(cv2.ml.SVM_C_SVC)
 svm.setKernel(cv2.ml.SVM_LINEAR)
-svm.setTermCriteria((cv2.TERM_CRITERIA_COUNT, 10, 1.e-06))
+svm.setTermCriteria((cv2.TERM_CRITERIA_COUNT, 100, 1.e-06))
 
 print( len(training_data) )
 print( len(training_data[0]))

@@ -35,6 +35,9 @@ while(True):
 	print( len(frame) ) 
 	print( len(frame[0]) )
 
+	loc_x = []
+	loc_y = []
+
 	for x in range( 0, int( (len(frame[0])-cellWidth) / step)-1 ):
 		for y in range( 0, int( (len(frame)-cellHeight) / step)-1 ):
 			cell = []
@@ -61,10 +64,27 @@ while(True):
 
 			if(svm.predict(data.reshape(-1, svmSize))[1][0] > 0 ):
 			    print( "FOUND IT", x, y)
+			    loc_x.append(x)
+			    loc_y.append(y)
 			    cv2.rectangle(frame, (x*step, y*step), (step*x+cellWidth, step*y+cellHeight), (0,255,0))
 
 			#cv2.imshow('data', data)
-			
+	
+	loc_x = np.array(loc_x, dtype=np.float32)
+	loc_y = np.array(loc_y, dtype=np.float32)
+	z = np.hstack((loc_x, loc_y))
+
+	#print(z)
+
+	criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0)
+	ret,label,center=cv2.kmeans(z,2,None,criteria,10,cv2.KMEANS_RANDOM_CENTERS)
+	#print(center[:,0])
+	#print(center[:,1])
+	#print(ret)
+	print(len(center[0]))
+	cv2.circle(frame, (int(center[0][0]*step), int(center[1][0]*step)), 50, (255, 0, 0), -1)
+	
+
 	cv2.imshow('frame', frame)
 
 	if( cv2.waitKey(1) & 0xFF == ord('q') ):

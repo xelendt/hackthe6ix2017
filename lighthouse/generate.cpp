@@ -18,6 +18,7 @@
 bool clicked = false;
 int mouseX = -1;
 int mouseY = -1;
+bool selecting = true;
 
 std::vector<cv::Mat> pos;
 std::vector<cv::Mat> neg;
@@ -63,6 +64,9 @@ void saveWithResult( cv::Mat& toSave, int result )
 
 void mouseCallback( int event, int x, int y, int flags, void* userdata )
 {
+    mouseX = x;
+    mouseY = y;
+    
     if( event == cv::EVENT_LBUTTONDOWN )
     {
 	// do something with cam_frame
@@ -79,6 +83,15 @@ void mouseCallback( int event, int x, int y, int flags, void* userdata )
 	saveWithResult( concat, 1 );
 	//cv::imshow( "gradients", concat );
 	//cv::waitKey(0);
+    }
+
+    else if( event == cv::EVENT_MOUSEMOVE )
+    {
+	//if( selecting )
+	//{
+	    //cv::Mat
+	//}
+
     }
 }
 
