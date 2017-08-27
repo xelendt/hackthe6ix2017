@@ -52,9 +52,47 @@ function init(bundle, parent, options) {
   scene.add( cube );
   console.log( cube );
 
+  api_data = null;
+
   vr.render = function() {
     // Any custom behavior you want to perform on each frame goes here
     // console.log( vr );
+
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = (e) => {
+      if (request.readyState !== 4) {
+        return;
+      }
+
+      if (request.status === 200) {
+        api_data = JSON.parse(request.responseText);
+
+      } else {
+        console.warn('error');
+      }
+    };
+
+    request.open('GET', 'https://privo.serveo.net/stateById/59a20c47ea48642c64d7a425');
+    request.send();
+
+    // https://www.html5rocks.com/en/tutorials/cors/
+    // var xhr = createCORSRequest('GET', 'https://privo.serveo.net/stateById/59a20c47ea48642c64d7a425');
+
+    // console.log( xhr );
+
+    // xhr.onload = function() {
+    // var text = xhr.responseText;
+    // var title = getTitle(text);
+    //   alert('Response from CORS request to ' + url + ': ' + title);
+    // };
+
+    // xhr.onerror = function() {
+    //   alert('Woops, there was an error making the request.');
+    // };
+
+    // xhr.withCredentials = true;
+    // xhr.send();
+
     cube.rotation.y += 0.1;
     //console.log( "HELLO FROM RENDER LOOP");
     //console.log( vr.player.camera.rotation );
@@ -84,6 +122,13 @@ function init(bundle, parent, options) {
     pos.x += vel.x;
     pos.y += vel.y;
     pos.z += vel.z;
+
+    if( api_data )
+    {
+      console.log( "WE GOT DATA" );
+      pos.x = api_data.x;
+      pos.y = api_data.y;
+    }
 
     vr.player.camera.position.x = pos.x;
     vr.player.camera.position.y = pos.y;
