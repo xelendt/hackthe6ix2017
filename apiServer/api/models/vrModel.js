@@ -4,9 +4,21 @@ var Schema = mongoose.Schema;
 
 
 var daydreamState = new Schema({
-  moved: {
+  moving: {
     type: Boolean,
-    required: ''
+    required: true
+  },
+  x: {
+    type: Number,
+    required: true
+  },
+  y: {
+    type: Number,
+    required: true
+  },
+  z: {
+    type: Number,
+    required: true
   }
 });
 
