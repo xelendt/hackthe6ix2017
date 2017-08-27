@@ -25,13 +25,16 @@ while(True):
 	# do the check on the frame
 
 
-	DATA = { 'moved': False }
+	DATA = { 'moving': False, 'x': 0, 'y': 0.123, 'z':0 }
 
 	# send the http request
 	r = requests.put(URL, json=DATA)
 
-	#print( r.status_code )
-	#print( r.reason )
+	print( r.status_code )
+	print( r.reason )
+
+	break
+
 	print( len(frame) ) 
 	print( len(frame[0]) )
 
@@ -83,7 +86,6 @@ while(True):
 	#print(ret)
 	print(len(center[0]))
 	cv2.circle(frame, (int(center[0][0]*step), int(center[1][0]*step)), 50, (255, 0, 0), -1)
-	
 
 	cv2.imshow('frame', frame)
 
