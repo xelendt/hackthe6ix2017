@@ -23,6 +23,13 @@ def dist(loc_x, loc_y, a, b):
 def getAverage(loc_x, loc_y, a, b, c):
 	return ((loc_x[a]+loc_x[b]+loc_x[c])/3.0, (loc_y[a]+loc_y[b]+loc_y[c])/3.)	
 
+DATA = { 'moving': False, 'x': 0, 'y': 0, 'z':0 }
+
+# reset the position
+r = requests.put(URL, json=DATA)
+
+#print( r.status_code )
+#print( r.reason )
 
 while(True):
 	print ("frame")
@@ -32,13 +39,7 @@ while(True):
 	# do the check on the frame
 
 
-	DATA = { 'moving': False, 'x': 0, 'y': 0.123, 'z':0 }
-
-	# send the http request
-	#r = requests.put(URL, json=DATA)
-
-	#print( r.status_code )
-	#print( r.reason )
+	
 
 	print( len(frame) ) 
 	print( len(frame[0]) )
@@ -58,12 +59,12 @@ while(True):
 			#print(len(frame[50:50, 100:100]))
 			#cv2.imshow('frame', np.array(cell))
 
-			gx = cv2.Sobel( cell, cv2.CV_32F, 1, 0 )
-			gy = cv2.Sobel( cell, cv2.CV_32F, 0, 1 )
+			#gx = cv2.Sobel( cell, cv2.CV_32F, 1, 0 )
+			#gy = cv2.Sobel( cell, cv2.CV_32F, 0, 1 )
 
 			#cv2.imshow('frame', frame)
-			cv2.imshow('gx', gx)
-			cv2.imshow('gy', gy)
+			#cv2.imshow('gx', gx)
+			#cv2.imshow('gy', gy)
 			data = np.hstack((cell, cell))
 
 			
@@ -139,7 +140,13 @@ while(True):
 	if( cv2.waitKey(1) & 0xFF == ord('q') ):
 		break
 
-	DATA = { 'moving': False, 'x': new_avg[0]*step, 'y': new_avg[1]*step, 'z':0 }
+	loc_x.sort()
+	loc_y.sort()
+	print( loc_x[len(loc_x)-1] - loc_x[0] )
+	print( loc_y[len(loc_y)-1] - loc_y[0] )
+	#print( loc_y )
+
+	DATA = { 'moving': False, 'x': len(frame[0])-new_avg[0]*step, 'y': len(frame)-new_avg[1]*step, 'z':int(loc_x[len(loc_x)-1] - loc_x[0]) }
 
 	# send the http request
 	r = requests.put(URL, json=DATA)
