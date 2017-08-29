@@ -1,0 +1,8 @@
+cd lighthouse;
+./cleanSamples;
+./cleanData;
+make collect-run;
+make generate-run;
+
+cd ../pylighthouse;
+python3 train.py;

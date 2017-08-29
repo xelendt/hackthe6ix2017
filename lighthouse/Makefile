@@ -10,11 +10,14 @@ LIBS = -L/usr/local/lib \
 			-lopencv_core \
 			-lopencv_imgcodecs \
 			-lopencv_imgproc \
-			-lopencv_videoio
+			-lopencv_videoio \
+			-lopencv_ml \
+			-lcurl \
 
 			#-L/usr/local/Cellar/opencv3/3.2.0/share/OpenCV/3rdparty/lib \
 
-INCLUDE = -I/usr/local/Cellar/opencv3/3.2.0/include
+INCLUDE = -I/usr/local/Cellar/opencv3/3.2.0/include 
+
 
 TARGETS = server.cpp
 			
@@ -28,6 +31,18 @@ train:
 
 train-run:
 	rm -f train; make train; ./train
+
+collect:
+	$(CXX) collect.cpp -o collect $(LIBS) $(INCLUDE) $(CXXFLAGS) 
+
+collect-run:
+	rm -f collect; make collect; ./collect
+
+generate:
+	$(CXX) generate.cpp -o generate $(LIBS) $(INCLUDE) $(CXXFLAGS) 
+
+generate-run:
+	rm -f generate; make generate; ./generate
 
 run: 
 	make; ./$(EXEC)
